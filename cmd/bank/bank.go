@@ -2,10 +2,27 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"strconv"
 )
 
+const saldoUsuario = "saldo.txt"
+
+func pegarSaldo() float64 {
+	data, _ := os.ReadFile(saldoUsuario)
+	saldoTexto := string(data)
+	saldo, _ := strconv.ParseFloat(saldoTexto, 64)
+
+	return saldo
+}
+
+func escreverSaldoParaArquivo(saldo float64) {
+	// Aqui você pode implementar a lógica para escrever o saldo em um arquivo
+	saldoArquivo := fmt.Sprintf("%.2f", saldo)
+	os.WriteFile(saldoUsuario, []byte(saldoArquivo), 0644)
+}
 func main() {
-	var saldoDisponivel = 3000.00
+	var saldoDisponivel = pegarSaldo()
 	// for i := 0; i < 10; i++ {
 	for {
 		fmt.Println("Bem vindo ao Banco Go!")
@@ -34,6 +51,7 @@ func main() {
 			saldoDisponivel += valorDeposito
 
 			fmt.Println("O novo saldo disponivel é de: R$", saldoDisponivel)
+			escreverSaldoParaArquivo(saldoDisponivel)
 
 		case 3:
 			var valorSaque float64
@@ -53,6 +71,7 @@ func main() {
 			saldoDisponivel -= valorSaque
 
 			fmt.Println("O saldo apos o saque é de: R$", saldoDisponivel)
+			escreverSaldoParaArquivo(saldoDisponivel)
 
 		default:
 			fmt.Println("Volte sempre!")
