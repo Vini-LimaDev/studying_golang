@@ -9,10 +9,19 @@ import (
 const saldoUsuario = "saldo.txt"
 
 func pegarSaldo() float64 {
-	data, _ := os.ReadFile(saldoUsuario)
-	saldoTexto := string(data)
-	saldo, _ := strconv.ParseFloat(saldoTexto, 64)
+	data, err := os.ReadFile(saldoUsuario)
 
+	if err != nil {
+		fmt.Println("Erro ao ler o arquivo de saldo")
+		return 0.0 // Retorna 0 se não conseguir ler o arquivo
+	}
+
+	saldoTexto := string(data)
+	saldo, err := strconv.ParseFloat(saldoTexto, 64)
+	if err != nil {
+		fmt.Println("Erro ao converter o saldo:", err)
+		return 0.0
+	}
 	return saldo
 }
 
@@ -33,12 +42,14 @@ func main() {
 		fmt.Println("4. Sair")
 
 		var escolha int
+		fmt.Println() // Pula uma linha antes da pergunta
 		fmt.Print("Sua escolha: ")
 		fmt.Scan(&escolha)
 
 		switch escolha {
 		case 1:
 			fmt.Println("Seu saldo disponível é: ", saldoDisponivel)
+			fmt.Println()
 		case 2:
 			var valorDeposito float64
 			fmt.Print("Qual valor você deseja depositar? ")
@@ -51,6 +62,7 @@ func main() {
 			saldoDisponivel += valorDeposito
 
 			fmt.Println("O novo saldo disponivel é de: R$", saldoDisponivel)
+			fmt.Println()
 			escreverSaldoParaArquivo(saldoDisponivel)
 
 		case 3:
