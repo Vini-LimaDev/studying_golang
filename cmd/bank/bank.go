@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -8,21 +9,19 @@ import (
 
 const saldoUsuario = "saldo.txt"
 
-func pegarSaldo() float64 {
+func pegarSaldo() (float64, error) {
 	data, err := os.ReadFile(saldoUsuario)
 
 	if err != nil {
-		fmt.Println("Erro ao ler o arquivo de saldo")
-		return 0.0 // Retorna 0 se não conseguir ler o arquivo
+		return 0, errors.New("Erro ao ler o arquivo de saldo")
 	}
 
 	saldoTexto := string(data)
 	saldo, err := strconv.ParseFloat(saldoTexto, 64)
 	if err != nil {
-		fmt.Println("Erro ao converter o saldo:", err)
-		return 0.0
+		return 0, errors.New("Erro ao converter o saldo para float")
 	}
-	return saldo
+	return saldo, nil
 }
 
 func escreverSaldoParaArquivo(saldo float64) {
@@ -31,8 +30,12 @@ func escreverSaldoParaArquivo(saldo float64) {
 	os.WriteFile(saldoUsuario, []byte(saldoArquivo), 0644)
 }
 func main() {
-	var saldoDisponivel = pegarSaldo()
-	// for i := 0; i < 10; i++ {
+	var saldoDisponivel, err = pegarSaldo()
+	if err != nil {
+		fmt.Println("Erro!")
+		fmt.Println(err)
+		fmt.Println("---------------------")
+	}
 	for {
 		fmt.Println("Bem vindo ao Banco Go!")
 		fmt.Println("O que deseja fazer?!")
@@ -83,6 +86,7 @@ func main() {
 			saldoDisponivel -= valorSaque
 
 			fmt.Println("O saldo apos o saque é de: R$", saldoDisponivel)
+			fmt.Println()
 			escreverSaldoParaArquivo(saldoDisponivel)
 
 		default:
