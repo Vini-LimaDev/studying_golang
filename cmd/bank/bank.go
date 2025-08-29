@@ -13,13 +13,13 @@ func pegarSaldo() (float64, error) {
 	data, err := os.ReadFile(saldoUsuario)
 
 	if err != nil {
-		return 0, errors.New("Erro ao ler o arquivo de saldo")
+		return 0, errors.New("erro ao ler o arquivo de saldo")
 	}
 
 	saldoTexto := string(data)
 	saldo, err := strconv.ParseFloat(saldoTexto, 64)
 	if err != nil {
-		return 0, errors.New("Erro ao converter o saldo para float")
+		return 0, errors.New("erro ao converter o saldo para float")
 	}
 	return saldo, nil
 }
@@ -35,6 +35,9 @@ func main() {
 		fmt.Println("Erro!")
 		fmt.Println(err)
 		fmt.Println("---------------------")
+		// panic("Não podemos continuar, me desculpe ") -> Traceback do erro
+		return
+
 	}
 	for {
 		fmt.Println("Bem vindo ao Banco Go!")
