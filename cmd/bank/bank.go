@@ -1,36 +1,15 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"os"
-	"strconv"
+	arquivos "studying_golang/cmd/bank/arq"
 )
 
-const saldoUsuario = "saldo.txt"
+const saldoUsuarioTxt = "saldo.txt"
 
-func pegarSaldo() (float64, error) {
-	data, err := os.ReadFile(saldoUsuario)
-
-	if err != nil {
-		return 0, errors.New("erro ao ler o arquivo de saldo")
-	}
-
-	saldoTexto := string(data)
-	saldo, err := strconv.ParseFloat(saldoTexto, 64)
-	if err != nil {
-		return 0, errors.New("erro ao converter o saldo para float")
-	}
-	return saldo, nil
-}
-
-func escreverSaldoParaArquivo(saldo float64) {
-	// Aqui você pode implementar a lógica para escrever o saldo em um arquivo
-	saldoArquivo := fmt.Sprintf("%.2f", saldo)
-	os.WriteFile(saldoUsuario, []byte(saldoArquivo), 0644)
-}
 func main() {
-	var saldoDisponivel, err = pegarSaldo()
+	var saldoDisponivel, err = arquivos.PegarValorArquivo(saldoUsuarioTxt)
+	// para utilizar o
 	if err != nil {
 		fmt.Println("Erro!")
 		fmt.Println(err)
@@ -40,12 +19,7 @@ func main() {
 
 	}
 	for {
-		fmt.Println("Bem vindo ao Banco Go!")
-		fmt.Println("O que deseja fazer?!")
-		fmt.Println("1. Verificar Saldo")
-		fmt.Println("2. Depositar")
-		fmt.Println("3. Sacar")
-		fmt.Println("4. Sair")
+		exibirMenu()
 
 		var escolha int
 		fmt.Println() // Pula uma linha antes da pergunta
@@ -69,7 +43,7 @@ func main() {
 
 			fmt.Println("O novo saldo disponivel é de: R$", saldoDisponivel)
 			fmt.Println()
-			escreverSaldoParaArquivo(saldoDisponivel)
+			arquivos.EscreverResultadoParaArquivo(saldoDisponivel, saldoUsuarioTxt)
 
 		case 3:
 			var valorSaque float64
@@ -90,7 +64,7 @@ func main() {
 
 			fmt.Println("O saldo apos o saque é de: R$", saldoDisponivel)
 			fmt.Println()
-			escreverSaldoParaArquivo(saldoDisponivel)
+			arquivos.EscreverResultadoParaArquivo(saldoDisponivel, saldoUsuarioTxt)
 
 		default:
 			fmt.Println("Volte sempre!")
