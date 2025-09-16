@@ -14,29 +14,28 @@ import (
 const valorInflacao = 5.5
 
 func main() {
-	valorInvestido, err := getValorUsuario("Qual valor a ser investido? ")
-	if err != nil {
-		fmt.Println(err)
+	valorInvestido, err1 := getValorUsuario("Qual valor a ser investido? ")
+	if err1 != nil {
+		fmt.Println(err1)
 		return
 	}
-	retornoEsperado, err := getValorUsuario("Qual o retorno esperado (em % ao ano)? ")
-	if err != nil {
-		fmt.Println(err)
+	retornoEsperado, err2 := getValorUsuario("Qual o retorno esperado (em % ao ano)? ")
+	if err2 != nil {
+		fmt.Println(err2)
 		return
 	}
-	anos, err := getValorUsuario("Quantos anos? ")
-	if err != nil {
-		fmt.Println(err)
+	anos, err3 := getValorUsuario("Quantos anos? ")
+	if err3 != nil {
+		fmt.Println(err3)
 		return
 	}
 
 	valorFuturo, valorFuturoReal := calcular(valorInvestido, retornoEsperado, anos)
 
 	fmt.Printf("Valor Futuro Bruto: R$ %.2f\n", valorFuturo)
-	guardarValorBruto(valorFuturo)
-
 	fmt.Printf("Valor Futuro Real (ajustado pela inflação): R$ %.2f\n", valorFuturoReal)
-	guardarValorReal(valorFuturoReal)
+
+	guardaResultados(valorFuturo, valorFuturoReal)
 }
 
 func calcular(valorInvestido, retornoEsperado, anos float64) (float64, float64) {
@@ -58,14 +57,9 @@ func getValorUsuario(texto string) (float64, error) {
 	return valor, nil
 }
 
-func guardarValorBruto(valor float64) {
-	valorBruto := fmt.Sprintf("%.2f", valor)
-	os.WriteFile("valor_bruto.txt", []byte(valorBruto), 0644)
-}
-
-func guardarValorReal(valor float64) {
-	valorReal := fmt.Sprintf("%.2f", valor)
-	os.WriteFile("valor_real.txt", []byte(valorReal), 0644)
+func guardaResultados(valorFuturo, valorFuturoReal float64) {
+	resultado := fmt.Sprintf("Valor Futuro Bruto: R$ %.2f\nValor Futuro Real (ajustado pela inflação): R$ %.2f\n", valorFuturo, valorFuturoReal)
+	os.WriteFile("resultados.txt", []byte(resultado), 0644)
 }
 
 //  Ou então podemos declarar as variaveis direto na função de retorno:
