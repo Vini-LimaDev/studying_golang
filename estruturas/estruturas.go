@@ -19,6 +19,10 @@ func (u Usuario) printInfos() { //Método associado a struct Usuario
 func (u *Usuario) limparNome() {
 	u.Nome = ""
 	u.Sobrenome = ""
+
+	// Utilizamos o * para alterar o valor do ponteiro
+	// Se não utilizássemos o * estaríamos alterando apenas uma cópia do valor
+	// Ou seja, a alteração não seria refletida fora do método
 }
 
 func main() {
