@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -25,12 +26,29 @@ func (u *Usuario) limparNome() {
 	// Ou seja, a alteração não seria refletida fora do método
 }
 
-func main() {
-	usuario := Usuario{
-		Nome:        dadosUsuario("Digite seu primeiro nome: "),
-		Sobrenome:   dadosUsuario("Digite seu segundo nome: "),
-		Aniversario: dadosUsuario("Digite sua data de aniversário: "),
+func novoUsuario(nome, sobrenome, aniversario string) (*Usuario, error) {
+	if nome == "" || sobrenome == "" || aniversario == "" {
+		return nil, errors.New("Nome/Sobrenome/Aniversário são campos obrigatórios")
+	}
+
+	return &Usuario{
+		Nome:        nome,
+		Sobrenome:   sobrenome,
+		Aniversario: aniversario,
 		criadoEm:    time.Now(),
+	}, nil
+}
+
+func main() {
+	userNome := dadosUsuario("Digite seu nome: ")
+	userSobrenome := dadosUsuario("Digite seu sobrenome: ")
+	userAniversario := dadosUsuario("Digite sua data de aniversário (dd/mm/aaaa): ")
+
+	usuario, err := novoUsuario(userNome, userSobrenome, userAniversario)
+
+	if err != nil {
+		fmt.Println("Erro ao criar usuário:", err)
+		return
 	}
 
 	usuario.printInfos()
@@ -41,6 +59,7 @@ func main() {
 func dadosUsuario(textoPergunta string) string {
 	fmt.Print(textoPergunta)
 	var valor string
-	fmt.Scan(&valor)
+	fmt.Scanln(&valor)
+
 	return valor
 }
