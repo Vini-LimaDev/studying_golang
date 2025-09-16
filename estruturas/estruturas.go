@@ -12,6 +12,10 @@ type Usuario struct {
 	criadoEm    time.Time
 }
 
+func (u Usuario) printInfos() { //Método associado a struct Usuario
+	fmt.Println("Nome: ", u.Nome, u.Sobrenome, "Aniversário: ", u.Aniversario, "Criado em: ", u.criadoEm.Format("02/01/2006"))
+}
+
 func main() {
 	usuario := Usuario{
 		Nome:        dadosUsuario("Digite seu primeiro nome: "),
@@ -20,7 +24,7 @@ func main() {
 		criadoEm:    time.Now(),
 	}
 
-	fmt.Println(usuario.Nome, usuario.Sobrenome, usuario.Aniversario, usuario.criadoEm)
+	usuario.printInfos()
 }
 
 func dadosUsuario(textoPergunta string) string {
