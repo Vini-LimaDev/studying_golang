@@ -16,6 +16,11 @@ func (u Usuario) printInfos() { //Método associado a struct Usuario
 	fmt.Println("Nome: ", u.Nome, u.Sobrenome, "Aniversário: ", u.Aniversario, "Criado em: ", u.criadoEm.Format("02/01/2006"))
 }
 
+func (u *Usuario) limparNome() {
+	u.Nome = ""
+	u.Sobrenome = ""
+}
+
 func main() {
 	usuario := Usuario{
 		Nome:        dadosUsuario("Digite seu primeiro nome: "),
@@ -24,6 +29,8 @@ func main() {
 		criadoEm:    time.Now(),
 	}
 
+	usuario.printInfos()
+	usuario.limparNome()
 	usuario.printInfos()
 }
 
