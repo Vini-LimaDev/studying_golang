@@ -10,9 +10,9 @@ import (
 )
 
 type Nota struct {
-	Titulo      string
-	Conteudo    string
-	DataCriacao time.Time
+	Titulo      string    `json:"titulo"` // Tags de estrutura para JSON
+	Conteudo    string    `json:"conteudo"`
+	DataCriacao time.Time `json:"data_criacao"`
 }
 
 func (n Nota) Exibir() {
