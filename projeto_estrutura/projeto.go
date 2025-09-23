@@ -9,6 +9,14 @@ import (
 	todo "studying_golang/projeto_estrutura/todo"
 )
 
+type Saver interface {
+	Salvar() error
+}
+
+type Displayer interface {
+	Exibir()
+}
+
 func main() {
 	titulo, conteudo := getNota()
 	texto := getTodo()
@@ -27,26 +35,31 @@ func main() {
 		return
 	}
 
-	todo.Exibir()
-	err = todo.Salvar()
-
-	if err != nil {
-		fmt.Println("Erro ao salvar o todo:", err)
-		return
-	}
-
-	fmt.Println("To-do salvo com sucesso!")
-	// userNota.Exibir()
-	err = userNota.Salvar()
+	err = salvarTudo(userNota)
 
 	if err != nil {
 		fmt.Println("Erro ao salvar a nota:", err)
 		return
 	}
+	println("Nota salva com sucesso!")
 
-	fmt.Println("Nota salva com sucesso!")
+	err = salvarTudo(todo)
+
+	if err != nil {
+		fmt.Println("Erro ao salvar o todo:", err)
+		return
+	}
+	println("To-do salvo com sucesso!")
 }
 
+func salvarTudo(data Saver) error {
+	err := data.Salvar()
+
+	if err != nil {
+		fmt.Println("Erro ao salvar:", err)
+	}
+	return nil
+}
 func getTodo() string {
 	return getUsuarioInput("Texto do todo: ")
 }
