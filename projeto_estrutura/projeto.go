@@ -84,3 +84,17 @@ func getUsuarioInput(prompt string) string {
 	textoLimpo := strings.TrimSpace(input)
 	return textoLimpo
 }
+
+func printAlgumaCoisa(data interface{}) {
+	//Quando não sabemos o tipo, usamos interface{}
+	switch data.(type) {
+	case int:
+		print("inteiro: ", data)
+	case string:
+		print("string: ", data)
+	case float32:
+		print("float32: ", data)
+	default:
+		print("Tipo desconhecido")
+	}
+}
