@@ -76,6 +76,16 @@ func outrasCoisas() {
 	precos = precos[1:]
 	fmt.Println("Slice do array após remoção:", precos)
 
+	precosDescontos := []float64{100, 200, 300, 400, 500}
+	fmt.Println("Array com descontos:", precosDescontos)
+
+	//Para adicionar uma lista a outra, usamos o ... para "desempacotar" a lista
+	precosDescontos = append(precosDescontos, precos...)
+	fmt.Println("Array com descontos após adição:", precosDescontos)
+
+	fmt.Println("Tamanho do array e cap:", len(precosDescontos), cap(precosDescontos))
+	// O cap é a capacidade do array, que é o tamanho máximo que ele pode ter.
+
 }
 
 // var precos [5]int = [5]int{10, 20, 30, 40, 50}
