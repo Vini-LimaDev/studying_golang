@@ -1,21 +1,3 @@
-// Hora de praticar o que você aprendeu!
-
-// 1) Crie um novo array (!) que contenha três hobbies que você tem
-// Exiba (imprima) esse array na linha de comando.
-// 2) Também exiba mais dados sobre esse array:
-// - O primeiro elemento (individual)
-// - O segundo e o terceiro elementos combinados como uma nova lista
-// 3) Crie uma fatia com base no primeiro elemento que contenha
-// o primeiro e o segundo elementos.
-// Crie essa fatia de duas maneiras diferentes (ou seja, crie duas fatias no final)
-// 4) Refaça a fatia de (3) e altere-a para conter o segundo
-// e o último elemento do array original.
-// 5) Crie um "array dinâmico" que contenha os objetivos do seu curso (pelo menos 2 objetivos)
-// 6) Defina um objetivo diferente para o segundo objetivo E adicione um terceiro objetivo a esse array dinâmico existente
-// 7) Bônus: Crie uma estrutura "Produto" com título, id, preço e crie uma
-// lista dinâmica de produtos (pelo menos 2 produtos).
-// Em seguida, adicione um terceiro produto à lista de produtos existente.
-
 package main
 
 import "fmt"
@@ -27,25 +9,33 @@ type Produto struct {
 }
 
 func main() {
-	hobbies := [3]string{"Ler", "Correr", "Cozinhar"}
+	// 1) Crie um novo array (!) que contenha três hobbies que você tem e exiba (imprima) esse array na linha de comando.
+	hobbies := [3]string{"Jogar", "Treinar", "Assistir"}
 	fmt.Println("Array:", hobbies)
+
+	// 2) Também exiba mais dados sobre esse array:
+	// 	- O primeiro elemento (individual)
+	// 	- O segundo e o terceiro elementos combinados como uma nova lista
 	fmt.Println("Primeiro hobby:", hobbies[0])
+
 	hobbies2e3 := hobbies[1] + ", " + hobbies[2]
 	fmt.Println("Segundo e terceiro hobbies:", hobbies2e3)
+	fmt.Println()
 
-	// 3) Crie uma fatia com base no primeiro elemento que contenha
-	// o primeiro e o segundo elementos.
+	// 3) Crie uma fatia com base no primeiro elemento que contenha o primeiro e o segundo elementos.
 	slice1 := hobbies[0:2]
 	fmt.Println("Slice 1 (primeiro e segundo hobbies):", slice1)
+
 	// Crie essa fatia de duas maneiras diferentes (ou seja, crie duas fatias no final)
 	slice1_alt := hobbies[:2]
-	fmt.Println("Slice 1 (primeiro e segundo hobbies) alternativa:", slice1_alt)
+	fmt.Println("Slice 1.1 (primeiro e segundo hobbies) alternativa:", slice1_alt)
+	fmt.Println()
 
-	// 4) Refaça a fatia de (3) e altere-a para conter o segundo
-	// e o último elemento do array original.
+	// 4) Refaça a fatia de (3) e altere-a para conter o segundo e o último elemento do array original.
 	slice2 := hobbies[1:3]
 	fmt.Println("Slice 1 (primeiro e segundo hobbies):", slice1)
 	fmt.Println("Slice 2 (segundo e último hobbies):", slice2)
+	fmt.Println()
 
 	// 5) Crie um "array dinâmico" que contenha os objetivos do seu curso (pelo menos 2 objetivos)
 	var objetivos []string
@@ -57,9 +47,9 @@ func main() {
 	objetivos[1] = "Criar aplicações web"
 	objetivos = append(objetivos, "Contribuir para projetos open source")
 	fmt.Println("Objetivos atualizados:", objetivos)
+	fmt.Println()
 
-	// 7) Bônus: Crie uma estrutura "Produto" com título, id, preço e crie uma
-	// lista dinâmica de produtos (pelo menos 2 produtos).
+	// 7) Bônus: Crie uma estrutura "Produto" com título, id, preço e crie uma lista dinâmica de produtos (pelo menos 2 produtos).
 	// Em seguida, adicione um terceiro produto à lista de produtos existente.
 	var produtos []Produto
 	produtos = append(produtos, Produto{ID: 1, Titulo: "Produto1", Preco: 10.0})
