@@ -16,5 +16,8 @@ func main() {
 	informacoes := []interface{}{}
 	informacoes = append(informacoes, nome)
 	informacoes = append(informacoes, idade)
-	fmt.Println("Suas informações:", informacoes)
+
+	for i, info := range informacoes {
+		fmt.Printf("Informação %d: %v\n", i+1, info)
+	}
 }
