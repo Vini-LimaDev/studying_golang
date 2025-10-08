@@ -14,6 +14,9 @@ func main() {
 	})
 
 	fmt.Println(transformados)
+
+	triplo := criarTransformacao(3)
+	fmt.Println("quero ver", triplo(4)) // Saída: 12
 }
 
 // A função 'transformar' recebe um ponteiro para uma lista de inteiros e uma função que transforma cada inteiro.
@@ -27,4 +30,12 @@ func transformar(numeros *[]int, transformar func(int) int) []int {
 	}
 
 	return dNumeros
+}
+
+// Closure: função que retorna outra função.
+// A função retornada "lembra" do contexto em que foi criada, incluindo o valor do multiplicador.
+func criarTransformacao(multiplicador int) func(int) int {
+	return func(x int) int {
+		return x * multiplicador
+	}
 }
