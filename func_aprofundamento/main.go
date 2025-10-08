@@ -15,6 +15,7 @@ type Operacao func(int) int
 
 func main() {
 	teste := []int{1, 2, 3, 4, 5}
+	numeros2 := []int{10, 20, 30, 40, 50}
 	fmt.Println("Números originais:", teste)
 
 	// Passamos diferentes funções para transformar os números.
@@ -23,6 +24,14 @@ func main() {
 
 	triplo := transformarNumeros(&teste, triplicar)
 	fmt.Println("Números triplicados:", triplo)
+
+	// Podemos também retornar funções de outras funções.
+	// Aqui, dependendo do conteúdo da lista, retornamos uma função diferente.
+	teste_transformacao1 := getTransformacao(&teste)
+	teste_transformacao2 := getTransformacao(&numeros2)
+
+	fmt.Println("Transformação baseada na primeira lista:", transformarNumeros(&teste, teste_transformacao1))
+	fmt.Println("Transformação baseada na segunda lista:", transformarNumeros(&numeros2, teste_transformacao2))
 
 }
 
@@ -35,6 +44,14 @@ func transformarNumeros(nums *[]int, transformar Operacao) []int {
 	return numerosmodificados
 }
 
+func getTransformacao(nums *[]int) Operacao {
+	// Exemplo de função que retorna outra função.
+	if (*nums)[0] == 1 {
+		return dobrar
+	} else {
+		return triplicar
+	}
+}
 func dobrar(x int) int {
 	return x * 2
 }
