@@ -4,38 +4,34 @@ import (
 	"fmt"
 )
 
+// Vamos trabalhar om com funções que aceitam infinitos parâmetros e retornam múltiplos valores.
 func main() {
-	numeros := []int{1, 2, 3}
+	calculo1 := []int{1, 2, 3, 4, 5}
+	calculo2 := []int{10, 20, 30}
 
-	// Aqui usamos uma função anônima como argumento para transformar cada número da lista.
-	// A função anônima recebe um número e retorna o dobro dele.
-	transformados := transformar(&numeros, func(numero int) int {
-		return numero * 2
-	})
+	fmt.Println("Soma de cálculo 1:", soma(calculo1...)) // Passando slice como múltiplos argumentos
+	fmt.Println("Soma de cálculo 2:", soma(calculo2...)) // Passando slice como múltiplos argumentos
 
-	fmt.Println(transformados)
+	resultadoStrings := juntarStrings("Olá", "mundo!", "Este", "é", "um", "teste.")
+	fmt.Println("Strings juntadas:", resultadoStrings)
 
-	triplo := criarTransformacao(3)
-	fmt.Println("quero ver", triplo(4)) // Saída: 12
+	resultadoStrings2 := juntarStrings("Go", "é", "incrível!")
+	fmt.Println("Strings juntadas:", resultadoStrings2)
+
 }
 
-// A função 'transformar' recebe um ponteiro para uma lista de inteiros e uma função que transforma cada inteiro.
-// A função passada pode ser anônima ou nomeada, permitindo flexibilidade na transformação dos dados.
-func transformar(numeros *[]int, transformar func(int) int) []int {
-	dNumeros := []int{}
-
-	for _, valor := range *numeros {
-		// Aplica a função de transformação (que pode ser anônima) em cada elemento da lista.
-		dNumeros = append(dNumeros, transformar(valor))
+func soma(numeros ...int) int {
+	total := 0
+	for _, numero := range numeros {
+		total += numero
 	}
-
-	return dNumeros
+	return total
 }
 
-// Closure: função que retorna outra função.
-// A função retornada "lembra" do contexto em que foi criada, incluindo o valor do multiplicador.
-func criarTransformacao(multiplicador int) func(int) int {
-	return func(x int) int {
-		return x * multiplicador
+func juntarStrings(strings ...string) string {
+	resultado := ""
+	for _, str := range strings {
+		resultado += str + " "
 	}
+	return resultado
 }
