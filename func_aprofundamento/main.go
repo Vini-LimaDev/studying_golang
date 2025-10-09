@@ -6,11 +6,11 @@ import (
 
 // Vamos trabalhar om com funções que aceitam infinitos parâmetros e retornam múltiplos valores.
 func main() {
-	calculo1 := []int{1, 2, 3, 4, 5}
-	calculo2 := []int{10, 20, 30}
+	calculo1forma := []int{1, 2, 3, 4, 5}
+	calculo2forma := soma(10, 20, 30, 40, 50)
 
-	fmt.Println("Soma de cálculo 1:", soma(calculo1...)) // Passando slice como múltiplos argumentos
-	fmt.Println("Soma de cálculo 2:", soma(calculo2...)) // Passando slice como múltiplos argumentos
+	fmt.Println("Soma de cálculo 1:", soma(calculo1forma...)) // Quando já temos uma slice, usamos '...' para expandi-la.
+	fmt.Println("Soma de cálculo 2:", soma(calculo2forma))
 
 	resultadoStrings := juntarStrings("Olá", "mundo!", "Este", "é", "um", "teste.")
 	fmt.Println("Strings juntadas:", resultadoStrings)
